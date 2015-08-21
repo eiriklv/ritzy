@@ -22,7 +22,6 @@ import TextFontMetrics from '../core/TextFontMetrics'
 require('../styles/internal.less')
 
 const T = React.PropTypes
-const nbsp = String.fromCharCode(160)
 
 export default React.createClass({
   propTypes: {
@@ -341,10 +340,9 @@ export default React.createClass({
   },
 
   _renderInput(cursorPosition) {
-    let position = cursorPosition ? cursorPosition.top : 0
-
+    let top = cursorPosition ? cursorPosition.top : 0
     return (
-      <TextInput id={this.props.id} ref="input" position={position} focused={this.state.focus}/>
+      <TextInput id={this.props.id} ref="input" yPosition={top} focused={this.state.focus}/>
     )
   },
 

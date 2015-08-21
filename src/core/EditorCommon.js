@@ -119,6 +119,15 @@ export class Line {
   charsTo(charOrId) {
     return this.chars.slice(0, this.indexOf(charOrId) + 1)
   }
+
+  isEqual(other) {
+    if(Object.is(this.chars, other.chars)) return true
+    else if(this.chars.length !== other.chars.length) return false
+    else if(!_.isEqual(this.start, other.start)) return false
+    else if(!_.isEqual(this.end, other.end)) return false
+    else if(!_.isEqual(this.chars, other.chars)) return false
+    return true
+  }
 }
 
 const EMPTY_LINE = new Line([], [], BASE_CHAR, EOF, 0)

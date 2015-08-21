@@ -19,7 +19,20 @@ export default React.createClass({
     remote: T.object
   },
 
-  //mixins: [React.addons.PureRenderMixin],
+  shouldComponentUpdate(nextProps) {
+    // for better performance make sure objects are immutable so that reference equality is true
+    let propsEqual = this.props.lineHeight === nextProps.lineHeight
+      && this.props.cursorMotion === nextProps.cursorMotion
+      && this.props.selectionActive === nextProps.selectionActive
+      && this.props.focus === nextProps.focus
+      && this.props.remoteNameReveal === nextProps.remoteNameReveal
+      && (Object.is(this.props.cursorPosition, nextProps.cursorPosition) || _.isEqual(this.props.cursorPosition, nextProps.cursorPosition))
+      && (Object.is(this.props.activeAttributes, nextProps.activeAttributes) || _.isEqual(this.props.activeAttributes, nextProps.activeAttributes))
+      && (Object.is(this.props.remote, nextProps.remote)
+        || (this.props.remote && _.isEqual(this.props.remote.color, nextProps.remote.color) && _.isEqual(this.props.remote.model.name, nextProps.remote.model.name)))
+
+    return !propsEqual
+  },
 
   getDefaultProps() {
     return {
